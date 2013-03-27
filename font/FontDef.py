@@ -1,4 +1,5 @@
 import os
+import re
 from PIL import Image, ImageDraw
 
 class FontDef:
@@ -19,12 +20,16 @@ class FontDef:
 
     def parse_line(self, line):
         line = line.replace('".*"', '')
+        line = line.replace('\t', ' ')
+        line = re.sub(' +', ' ', line)
+        line = line.replace('"', '')
         segs = line.split(' ')
         cmd = segs[0]
         if cmd == 'info':
             return
 
-        params = '{"' + ',"'.join([a.replace('=', '":') for a in segs[1:]]) + '}'
+        params = '{"' + '","'.join([a.replace('=', '":"') for a in segs[1:]]) + '"}'
+        params = params.replace( '\n', '' )
         params = eval(params)
         self.parse_cmd(cmd, params)
         

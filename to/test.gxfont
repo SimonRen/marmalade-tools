@@ -1,0 +1,6 @@
+CIwGxFont
+{
+    utf8 1
+    image test.tga
+    charmap "0123456789"
+}
