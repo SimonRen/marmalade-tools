@@ -68,7 +68,7 @@ class FontDef:
         width = margin
         maxHeight = self.lineHeight
         for ch in self.chars:
-            w = max(int(ch['width']) + int(ch['xoffset']), int(ch['xadvance']))
+            w = int(ch['xadvance'])
             width += w + margin
             h = int(ch['height']) - int(ch['yoffset'])
             maxHeight = max(maxHeight, h)
@@ -82,10 +82,10 @@ class FontDef:
         for ch in self.chars:
             x = int(ch['x'])
             y = int(ch['y'])
-            w = int(ch['width'])
+            w = int(ch['xadvance'])
             h = int(ch['height'])
             xoffset = int(ch['xoffset'])
-            targetW = max(w + xoffset, int(ch['xadvance']))
+            targetW = int(ch['xadvance'])
             draw.rectangle((targetX, margin, targetX + targetW, margin + maxHeight), (0,0,0,0))
 
             glyph = self.image.copy().crop((x, y, x + w, y + h))
